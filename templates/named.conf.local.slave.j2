@@ -1,0 +1,14 @@
+## ansible managed
+
+{% for slave_zone in bind_config_slave_zones %}
+######## {{ slave_zone.name }} ({{ slave_zone.zones|count }} zones)
+
+{% for zone in slave_zone.zones %}
+zone "{{ zone }}" {
+    type slave;
+    file "/etc/bind/slaves/db.{{ zone }}";
+    masters { {{ slave_zone.master }}; };
+};
+
+{% endfor %}
+{% endfor %}

@@ -1,0 +1,34 @@
+---
+- name: install bind packages
+  apt: pkg={{ item }} state={{ bind_pkg_state }}
+  with_items: bind_pkgs
+  tags: package
+
+- name: setup zone directories
+  file: dest={{ bind_config_basepath }}/{{ item }} state=directory owner={{ bind_user }} group={{ bind_group }} mode=0755
+  with_items:
+    - masters
+    - slaves
+  tags: configuration
+
+- name: setup zones
+  action: template src=named.conf.local.{{ item }}.j2 dest={{ bind_config_basepath }}/named.conf.local.{{ item }} owner={{ bind_user }} group={{ bind_group }} mode=0600
+  with_items:
+    - master
+    - slave
+  notify: reload bind
+  tags: configuration
+
+- name: configure bind
+  copy: src=named.conf dest={{ bind_config_basepath }}/named.conf owner={{ bind_user }} group={{ bind_group }} mode=0600
+  notify: restart bind
+  tags: configuration
+
+- name: configure bind options
+  template: src=named.conf.options.j2 dest={{ bind_config_basepath }}/named.conf.options owner={{ bind_user }} group={{ bind_group }} mode=0600
+  notify: restart bind
+  tags: configuration
+
+- name: start/stop bind service
+  service: name={{ bind_service_name }} state={{ bind_service_state }} enabled={{ bind_service_enabled }}
+  tags: service

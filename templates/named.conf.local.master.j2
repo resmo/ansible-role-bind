@@ -1,0 +1,10 @@
+## ansible managed
+
+{% for master_zone in bind_config_master_zones %}
+zone "{{ zone }}" {
+    type master;
+    file "/etc/bind/masters/db.{{ master_zone }}";
+    allow-transfer {};
+};
+
+{% endfor %}
