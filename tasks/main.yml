@@ -7,15 +7,15 @@
 - name: setup zone directories
   file: dest={{ bind_config_basepath }}/{{ item }} state=directory owner={{ bind_user }} group={{ bind_group }} mode=0755
   with_items:
-    - masters
-    - slaves
+  - masters
+  - slaves
   tags: configuration
 
 - name: setup zones
   action: template src=named.conf.local.{{ item }}.j2 dest={{ bind_config_basepath }}/named.conf.local.{{ item }} owner={{ bind_user }} group={{ bind_group }} mode=0600
   with_items:
-    - master
-    - slave
+  - master
+  - slave
   notify: reload bind
   tags: configuration
 

@@ -18,10 +18,9 @@ options {
         notify-source *;
 
         allow-transfer {
-            212.103.69.101;
-            212.103.69.102;
-            2a00:c38:10f::a0a:a8c;
-            2a00:c38:10f::a0a:af0;
+        {% for allow_transfer in bind_config_master_allow_transfer %}
+            {{ allow_transfer }};
+        {% endfor %}
         };
 
         also-notify {

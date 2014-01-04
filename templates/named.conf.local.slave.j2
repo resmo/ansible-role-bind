@@ -1,4 +1,4 @@
-## ansible managed
+## {{ ansible_managed }}
 
 {% for slave_zone in bind_config_slave_zones %}
 ######## {{ slave_zone.name }} ({{ slave_zone.zones|count }} zones)
