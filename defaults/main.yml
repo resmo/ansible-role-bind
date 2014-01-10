@@ -5,3 +5,4 @@ bind_config_slave_zones: []
 bind_service_state: started
 bind_service_enabled: yes
 bind_pkg_state: installed
+bind_masterzones_path: 'files/masters'

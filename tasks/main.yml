@@ -29,6 +29,12 @@
   notify: restart bind
   tags: configuration
 
+- name: Copy master zone files
+  copy: src={{ bind_masterzones_path }}/db.{{ item.name }} dest=/etc/bind/masters owner={{ bind_user }} group={{ bind_group }}
+  with_items: bind_config_master_zones
+  notify: restart bind
+  tags: zones
+
 - name: start/stop bind service
   service: name={{ bind_service_name }} state={{ bind_service_state }} enabled={{ bind_service_enabled }}
   tags: service
