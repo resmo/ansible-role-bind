@@ -1,12 +1,7 @@
 - hosts: localhost
   remote_user: root
-  vars_files:
-    - 'vars/main.yml'
-    - 'defaults/main.yml'
   vars:
     bind_config_master_zones: 
       - name: example.com
-  tasks:
-    - include: 'tasks/main.yml'
-  handlers:
-    - include: 'handlers/main.yml'
+  roles:
+      - ansible-role-bind
