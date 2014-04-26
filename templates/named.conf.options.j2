@@ -36,7 +36,9 @@ options {
         // the all-0's placeholder.
 
         forwarders {
-                0.0.0.0;
+        {% for forwarders in bind_config_master_forwarders %}
+            {{ forwarders }};
+        {% endfor %}
         };
 
         //dnssec-enable yes;
