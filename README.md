@@ -14,15 +14,15 @@ An ansible role for installing bind.
 ## Configuration:
 
       bind_config_master_zones:
-      - name: example.com
+        - name: example.com
       
       bind_config_master_allow_transfer:
-      - 127.0.0.1
-      - 127.0.0.2
+        - 127.0.0.1
+        - 127.0.0.2
       
       bind_config_slave_zones:
         - name: example.net
-          master: '127.1.0.1; 127.1.0.2'
+          masters: [ '127.1.0.1', '127.1.0.2' ]
           zones:
             - example.net
             - example.org
