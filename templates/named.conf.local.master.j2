@@ -11,6 +11,13 @@ zone "{{ master_zone.name }}" {
 {% endfor %}
     };
 {% endif %}
+{% if master_zone.allow_update is defined %}
+    allow-update {
+{% for allow_update in master_zone.allow_update %}
+        {{ allow_update }};
+{% endfor %}
+    };
+{% endif %}
 };
 
 {% endfor %}
