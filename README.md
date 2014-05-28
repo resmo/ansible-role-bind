@@ -1,9 +1,9 @@
+[![Build Status](https://travis-ci.org/resmo/ansible-role-bind.png?branch=master)](https://travis-ci.org/resmo/ansible-role-bind)
+
 # Ansible Bind Role
 
 An ansible role for installing and managing bind, acting as primary and/or secondary nameserver. 
 It does also copy the master zone files (`bind_masterzones_path`), but however, the zone files must exist.
-
-[![Build Status](https://travis-ci.org/resmo/ansible-role-bind.png?branch=master)](https://travis-ci.org/resmo/ansible-role-bind)
 
 
 ## Configuration:
@@ -49,13 +49,11 @@ None.
          - { role: resmo.bind }
 
 
-License
--------
+## License
 
 BSD
 
 
-Author Information
-------------------
+## Author Information
 
 René Moser <mail@renemoser.net>
