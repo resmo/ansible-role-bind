@@ -48,7 +48,7 @@ options {
   
         listen-on-v6 { any; };
 
-        allow-query { any; };              // This is the default
-        recursion no;                      // Do not provide recursive service
+        allow-query { any; };                      // This is the default
+        recursion {{ bind_allow_recursion }};      // Allow external lookups?
         zone-statistics yes;
 };
