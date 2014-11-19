@@ -34,6 +34,13 @@ Optionally: If your nameservers acts as a secondary nameserver, here is a sample
             - example.net
             - example.org
 
+Optionally: If you wish to allow bind to perform external lookups, you can set your own DNS upstream addresses. 
+            Defaults to no recursion.
+
+       bind_allow_recursion: yes
+       bind_config_external_forwarders:
+           - 8.8.8.8
+           - 8.8.4.4
 
 ## Dependencies
 
