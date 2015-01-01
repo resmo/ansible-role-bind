@@ -49,6 +49,6 @@ options {
         listen-on-v6 { any; };
 
         allow-query { any; };              // This is the default
-        recursion no;                      // Do not provide recursive service
+        recursion {{ bind_config_recursion }};                      // Do not provide recursive service
         zone-statistics yes;
 };
