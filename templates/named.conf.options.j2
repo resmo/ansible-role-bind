@@ -30,16 +30,16 @@ options {
 
         //provide-ixfr no ;
 
+	{% if bind_config_master_forwarders %}
         // If your ISP provided one or more IP addresses for stable
         // nameservers, you probably want to use them as forwarders.
-        // Uncomment the following block, and insert the addresses replacing
-        // the all-0's placeholder.
 
         forwarders {
         {% for forwarders in bind_config_master_forwarders %}
             {{ forwarders }};
         {% endfor %}
         };
+	{% endif %}
 
         //dnssec-enable yes;
         //dnssec-validation yes;
