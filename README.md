@@ -35,6 +35,18 @@ Optionally: If your nameservers acts as a secondary nameserver, here is a sample
             - example.org
 
 
+Optionally: If you need to forward some zones directly to another nameserver, here is a sample:
+
+    bind_config_forward_zones:
+      - name: domains forwarded to 127.1.0.x nameservers
+        forwarders: [ '127.1.0.1', '127.1.0.2' ]
+        forward: only
+        zones:
+          - forwarded.example.net
+          - forwarded.example.org
+
+*forward* should be either _first_ or _only_
+
 ## Dependencies
 
 None.
