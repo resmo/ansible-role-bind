@@ -4,8 +4,8 @@
 {% for zone in fwd_zone.zones %}
 zone "{{ zone }}" {
     type forward;
-{% if zone.forward is defined %}
-    forward {{ zone.forward }}; 
+{% if fwd_zone.forward is defined %}
+    forward {{ fwd_zone.forward }}; 
 {% endif %}
     forwarders {
 {% for fwder in fwd_zone.forwarders %}
