@@ -6,6 +6,8 @@ zone "{{ zone }}" {
     type forward;
 {% if fwd_zone.forward is defined %}
     forward {{ fwd_zone.forward }}; 
+{% else %}
+    forward only;
 {% endif %}
     forwarders {
 {% for fwder in fwd_zone.forwarders %}
