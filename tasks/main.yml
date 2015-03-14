@@ -16,6 +16,7 @@
   with_items:
   - master
   - slave
+  - forward
   notify: reload bind
   tags: configuration
 

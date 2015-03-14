@@ -1,0 +1,19 @@
+## {{ ansible_managed }}
+{% for fwd_zone in bind_config_forward_zones %}
+######## {{ fwd_zone.name }} ({{ fwd_zone.zones|count }} zones)
+{% for zone in fwd_zone.zones %}
+zone "{{ zone }}" {
+    type forward;
+{% if fwd_zone.forward is defined %}
+    forward {{ fwd_zone.forward }}; 
+{% else %}
+    forward only;
+{% endif %}
+    forwarders {
+{% for fwder in fwd_zone.forwarders %}
+          {{ fwder }};
+{% endfor %}
+    };
+};
+{% endfor %}
+{% endfor %}
