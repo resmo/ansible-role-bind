@@ -6,12 +6,21 @@
     bind_config_master_allow_transfer:
       - 127.0.0.1
       - 127.0.0.2
-    
+
     bind_config_slave_zones:
       - name: example.net
         masters: [ '127.1.0.1', '127.1.0.2' ]
         zones:
           - example.net
           - example.org
+
+    bind_config_forward_zones:
+      - name: domains forwarded to 127.1.0.x nameservers
+        forwarders: [ '127.1.0.1', '127.1.0.2' ]
+        forward: only
+        zones:
+          - forwarded.example.net
+          - forwarded.example.org
+
   roles:
     - ansible-role-bind

@@ -6,7 +6,13 @@ before_install:
  - sudo apt-get install -qq python-apt python-pycurl
 install:
   - pip install ansible
+  - echo -e 'localhost  ansible_connection=local' > tests/inventory
+  - echo -e '[defaults]\nroles_path = ../\nhostfile = ./tests/inventory' > ansible.cfg
 script:
-  - echo localhost > inventory
-  - ansible-playbook --syntax-check -i inventory role.yml
-  - ansible-playbook -i inventory role.yml --connection=local --sudo -vvvv
+  - ansible-playbook --syntax-check tests/role.yml
+  - ansible-playbook --sudo -v --diff tests/role.yml
+  - >
+    ansible-playbook --sudo tests/role.yml
+    | grep -q 'changed=0.*failed=0'
+    && (echo 'Idempotence test: pass' && exit 0)
+    || (echo 'Idempotence test: fail' && exit 1)
