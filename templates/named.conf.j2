@@ -26,17 +26,17 @@ zone "localhost" {
 
 zone "127.in-addr.arpa" {
         type master;
-        file "{{ bind_config_basepath }}/db.127";
+        file "{{ bind_config_basepath }}/db.local";
 };
 
 zone "0.in-addr.arpa" {
         type master;
-        file "{{ bind_config_basepath }}/db.0";
+        file "{{ bind_config_basepath }}/db.local";
 };
 
 zone "255.in-addr.arpa" {
         type master;
-        file "{{ bind_config_basepath }}/db.255";
+        file "{{ bind_config_basepath }}/db.local";
 };
 
 //include "{{ bind_config_basepath }}/named.conf.local";

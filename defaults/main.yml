@@ -1,4 +1,6 @@
 ---
+bind_user: bind
+bind_group: bind
 bind_config_basepath: /etc/bind
 bind_config_master_zones: []
 bind_config_master_allow_transfer: []

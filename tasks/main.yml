@@ -17,6 +17,12 @@
   tags: package
   when: ansible_os_family == 'FreeBSD'
 
+- name: setup files
+  copy: src={{ item }} dest={{ bind_config_basepath }}/{{ item }} owner={{ bind_user }} group={{ bind_group }}
+  with_items:
+  - db.local
+  tags: configuration
+
 - name: setup directories
   file: dest={{ item }} state=directory owner={{ bind_user }} group={{ bind_group }} mode=0755
   with_items:
@@ -32,7 +38,7 @@
   tags: configuration
 
 - name: setup zones
-  action: template src=named.conf.local.{{ item }}.j2 dest={{ bind_config_basepath }}/named.conf.local.{{ item }} owner={{ bind_user }} group={{ bind_group }} mode=0644
+  template: src=named.conf.local.{{ item }}.j2 dest={{ bind_config_basepath }}/named.conf.local.{{ item }} owner={{ bind_user }} group={{ bind_group }} mode=0644
   with_items:
   - master
   - slave
