@@ -40,13 +40,12 @@
   notify: reload bind
   tags: configuration
 
-- name: configure bind
-  template: src=named.conf.j2 dest={{ bind_config_basepath }}/named.conf owner={{ bind_user }} group={{ bind_group }} mode=0644 validate='named-checkconf %s'
-  notify: restart bind
+- name: configure bind options
+  template: src=named.conf.options.j2 dest={{ bind_config_basepath }}/named.conf.options owner={{ bind_user }} group={{ bind_group }} mode=0644
   tags: configuration
 
-- name: configure bind options
-  template: src=named.conf.options.j2 dest={{ bind_config_basepath }}/named.conf.options owner={{ bind_user }} group={{ bind_group }} mode=0644 validate='named-checkconf %s'
+- name: configure bind
+  template: src=named.conf.j2 dest={{ bind_config_basepath }}/named.conf owner={{ bind_user }} group={{ bind_group }} mode=0644 validate='named-checkconf %s'
   notify: restart bind
   tags: configuration
 
