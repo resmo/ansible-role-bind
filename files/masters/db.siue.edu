@@ -1,0 +1,11 @@
+$TTL    4h
+$ORIGIN siue.edu.
+@           IN      SOA     exdns1.isg.siue.edu.    dchace.siue.edu. (
+                            2013092801    ; Serial
+                            1d            ; slave refresh (1 day)
+                            2h            ; slave retry time in case of a problem (2 hours)
+                            2w            ; slave expiration time (2 weeks)
+                            2d            ; minimum caching time in case of failed lookups (2 days)
+                            )
+            IN      NS      exdns1.isg.siue.edu.
+	    IN      NS      exdns2.isg.siue.edu.
