@@ -25,6 +25,12 @@ options {
         {% endfor %}
         };
 
+        allow-recursion {
+        {% for allow_recursion in bind_config_master_allow_recursion %}
+            {{ allow_recursion }};
+        {% endfor %}
+        };
+
         notify yes;
 
         also-notify {
