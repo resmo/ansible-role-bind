@@ -45,7 +45,8 @@ options {
         //dnssec-validation yes;
 
         auth-nxdomain no;    # conform to RFC1035
-  
+        
+        listen-on { {{ bind_config_listen_on }}; }; 
         listen-on-v6 { any; };
 
         allow-query { any; };              // This is the default
