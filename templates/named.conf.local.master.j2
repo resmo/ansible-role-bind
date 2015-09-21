@@ -4,6 +4,13 @@
 zone "{{ master_zone.name }}" {
     type master;
     file "{{bind_base_zones_path}}/{{bind_masterzones_path}}/db.{{ master_zone.name }}";
+{% if master_zone.allow_query is defined %}
+    allow-query {
+{% for allow_query in master_zone.allow_query %}
+        {{ allow_query }};
+{% endfor %}
+    };
+{% endif %}
 {% if master_zone.allow_transfer is defined %}
     allow-transfer {
 {% for allow_transfer in master_zone.allow_transfer %}
@@ -16,6 +23,22 @@ zone "{{ master_zone.name }}" {
 {% for allow_update in master_zone.allow_update %}
         {{ allow_update }};
 {% endfor %}
+    };
+{% endif %}
+
+{% if master_zone.slave is defined or bind_config_master_allow_transfer is defined %}
+    notify explicit;
+    also-notify {
+{% if bind_config_master_allow_transfer is defined %}    
+{% for notify_update in  bind_config_master_allow_transfer %}
+        {{ notify_update }};
+{% endfor %}
+{% endif %}
+{% if master_zone.slave is defined %}
+{% for notify_update in master_zone.slave %}
+        {{ notify_update }};
+{% endfor %}
+{% endif %}
     };
 {% endif %}
 };

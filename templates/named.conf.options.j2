@@ -23,11 +23,6 @@ options {
         {% endfor %}
         };
 
-        notify yes;
-
-        also-notify {
-        };
-
         //provide-ixfr no ;
 
 	{% if bind_config_master_forwarders %}
@@ -50,6 +45,15 @@ options {
         listen-on-v6 { any; };
 
         allow-query { any; };              // This is the default
-        recursion {{ bind_config_recursion }};                      // Do not provide recursive service
+
+	{% if bind_config_recursion %}
+        // If you want to limit whose can use the recursion method.
+
+        allow-recursion {
+        {% for network in bind_config_recursion %}
+            {{ network }};
+        {% endfor %}
+        };
+	{% endif %}
         zone-statistics yes;
 };
