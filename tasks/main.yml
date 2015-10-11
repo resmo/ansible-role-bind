@@ -10,7 +10,7 @@
   - slaves
 
 - name: setup zones
-  action: template src=named.conf.local.{{ item }}.j2 dest={{ bind_config_basepath }}/named.conf.local.{{ item }} owner={{ bind_user }} group={{ bind_group }} mode=0600
+  template: src=named.conf.local.{{ item }}.j2 dest={{ bind_config_basepath }}/named.conf.local.{{ item }} owner={{ bind_user }} group={{ bind_group }} mode=0600
   with_items:
   - master
   - slave
