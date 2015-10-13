@@ -1,0 +1,9 @@
+---
+bind_config_basepath: /etc/named
+bind_user: named
+bind_group: named
+bind_service_name: named
+bind_pkgs:
+  - bind
+  - bind-utils
+
