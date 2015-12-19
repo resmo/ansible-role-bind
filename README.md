@@ -53,6 +53,19 @@ Optionally: If you want to adjust the allow-query option globally, here is a sam
     bind_config_allow_query: [ '127.1.0.1', '127.1.0.2' ]
 
 
+Optionally: If you want to adjust the notify behaviour of a zone: here is a sample:
+
+    bind_config_master_zones:
+        - name: example.com
+          notify: no
+
+    bind_config_slave_zones:
+        - name: example.com
+          notify: no
+
+*notify* should be either _no_, _explicit_ or _yes_ (bind default)
+
+
 ## Dependencies
 
 None.
