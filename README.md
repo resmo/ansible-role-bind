@@ -47,6 +47,12 @@ Optionally: If you need to forward some zones directly to another nameserver, he
 
 *forward* should be either _first_ or _only_
 
+
+Optionally: If you want to adjust the allow-query option globally, here is a sample:
+
+    bind_config_allow_query: [ '127.1.0.1', '127.1.0.2' ]
+
+
 ## Dependencies
 
 None.
