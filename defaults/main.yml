@@ -13,14 +13,14 @@ bind_service_name: bind9
 bind_service_state: started
 bind_service_enabled: yes
 bind_pkg_state: installed
+bind_base_zones_path: "/var/lib/bind"
+bind_masterzones_path: "masters"
+bind_slavezones_path: "slaves"
+bind_config_listen_on: any
+bind_config_allow_query: []
 bind_root_filename: db.root
 bind_pid_file_name: '/var/run/named/named.pid'
 bind_cache_path: '/var/cache/bind'
-bind_base_zones_path: '/var/lib/bind'
-bind_masterzones_path: 'masters'
-bind_slavezones_path: 'slaves'
-bind_config_listen_on: any
-bind_config_allow_query: []
 bind_pkgs:
   - bind9
   - dnsutils
