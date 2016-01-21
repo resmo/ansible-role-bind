@@ -53,10 +53,20 @@ options {
         //dnssec-validation yes;
 
         auth-nxdomain no;    # conform to RFC1035
-  
+        
+        listen-on { {{ bind_config_listen_on }}; }; 
         listen-on-v6 { any; };
 
+  {% if bind_config_allow_query %}
+      allow-query {
+      {% for queries in bind_config_allow_query %}
+        {{ queries }};
+      {% endfor %}
+      };
+  {% else %}
         allow-query { any; };              // This is the default
+  {% endif %}
+
         recursion {{ bind_config_recursion }};                      // Do not provide recursive service
         zone-statistics yes;
 };
