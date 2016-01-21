@@ -1,7 +1,9 @@
 // {{ ansible_managed }}
 
 options {
-        directory "/var/cache/bind";
+        directory "{{ bind_cache_path }}";
+
+        pid-file "{{ bind_pid_file_name }}";
 
         // If there is a firewall between you and nameservers you want
         // to talk to, you might need to uncomment the query-source
@@ -20,6 +22,12 @@ options {
         allow-transfer {
         {% for allow_transfer in bind_config_master_allow_transfer %}
             {{ allow_transfer }};
+        {% endfor %}
+        };
+
+        allow-recursion {
+        {% for allow_recursion in bind_config_master_allow_recursion %}
+            {{ allow_recursion }};
         {% endfor %}
         };
 
