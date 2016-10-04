@@ -1,0 +1,2 @@
+[test]
+local ansible_user=vagrant ansible_host=127.0.0.1 ansible_ssh_port=2200 bind_zone_master_server_ip=127.0.0.1

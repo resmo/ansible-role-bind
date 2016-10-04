@@ -1,0 +1,13 @@
+---
+- hosts: all
+  remote_user: root
+  sudo: True
+  vars:
+    bind_masterzones_path: zones
+    bind_config_master_zones:
+        - name: example.com
+        - name: example2.com
+        - name: example3.com
+
+  roles:
+    - { role: ../ansible-role-bind }
