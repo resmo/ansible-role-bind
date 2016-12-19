@@ -4,13 +4,13 @@
   with_items: "{{bind_pkgs}}"
 
 - name: setup zone directories
-  file: dest={{ bind_base_zones_path }}/{{ item }} state=directory owner={{ bind_user }} group={{ bind_group }} mode=0755
+  file: dest="{{ bind_base_zones_path }}/{{ item }}" state=directory owner="{{ bind_user }}" group="{{ bind_group }}" mode=0755
   with_items:
   - masters
   - slaves
 
 - name: setup zones
-  template: src=named.conf.local.{{ item }}.j2 dest={{ bind_config_basepath }}/named.conf.local.{{ item }} owner={{ bind_user }} group={{ bind_group }} mode=0600
+  template: src="named.conf.local.{{ item }}.j2" dest="{{ bind_config_basepath }}/named.conf.local.{{ item }}" owner="{{ bind_user }}" group="{{ bind_group }}" mode=0600
   with_items:
   - master
   - slave
@@ -18,18 +18,26 @@
   notify: reload bind
 
 - name: configure bind
-  copy: src=named.conf dest={{ bind_config_basepath }}/named.conf owner={{ bind_user }} group={{ bind_group }} mode=0600
+  copy: src=named.conf dest="{{ bind_config_basepath }}/named.conf" owner="{{ bind_user }}" group="{{ bind_group }}" mode=0600
   notify: restart bind
 
 - name: configure bind options
-  template: src=named.conf.options.j2 dest={{ bind_config_basepath }}/named.conf.options owner={{ bind_user }} group={{ bind_group }} mode=0600
+  template: src=named.conf.options.j2 dest="{{ bind_config_basepath }}/named.conf.options" owner="{{ bind_user }}" group="{{ bind_group }}" mode=0600
   notify: restart bind
 
+- name: Create directory for master zone files
+  file: 
+    path: "{{ bind_base_zones_path }}/{{ bind_masterzones_path }}"
+    mode: 0760
+    state: directory
+    owner: "{{ bind_user }}"
+    group: "{{ bind_group }}"
+
 - name: Copy master zone files
-  copy: src={{ bind_masterzones_path }}/db.{{ item.name }} dest={{ bind_base_zones_path }}/{{bind_masterzones_path}} owner={{ bind_user }} group={{ bind_group }}
-  with_items: "{{bind_config_master_zones}}"
+  copy: src="{{ bind_masterzones_path }}/db.{{ item.name }}" dest="{{ bind_base_zones_path }}/{{ bind_masterzones_path }}/db.{{ item.name }}" owner="{{ bind_user }}" group="{{ bind_group }}"
+  with_items: "{{ bind_config_master_zones }}"
   notify: reload bind
   tags: bind-zones
 
 - name: start/stop bind service
-  service: name={{ bind_service_name }} state={{ bind_service_state }} enabled={{ bind_service_enabled }}
+  service: name="{{ bind_service_name }}" state="{{ bind_service_state }}" enabled="{{ bind_service_enabled }}"
