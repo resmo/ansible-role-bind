@@ -59,6 +59,27 @@ options {
         allow-query { any; };              // This is the default
   {% endif %}
 
+{% if bind_config_allow_recursion %}
+       allow-recursion {
+       {% for queries in bind_config_allow_recursion %}
+         {{ queries }};
+       {% endfor %}
+       };
+   {% else %}
+         allow-recursion { any; };              // This is the default
+   {% endif %}
+
+{% if bind_config_allow_query_cache %}
+       allow-query-cache {
+       {% for queries in bind_config_allow_query_cache %}
+         {{ queries }};
+       {% endfor %}
+       };
+   {% else %}
+         allow-query-cache { any; };              // This is the default
+   {% endif %}
+
+
         recursion {{ bind_config_recursion }};                      // Do not provide recursive service
         zone-statistics yes;
 };
