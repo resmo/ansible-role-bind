@@ -1,4 +1,10 @@
 // {{ ansible_managed }}
+{% for acl in bind_config_acls %}
+acl "{{ acl.name }}" {
+{% for entries in acl.entries %} {{ entries | indent(4) }} 
+{% endfor %}
+}; 
+{% endfor %}
 
 options {
         directory "/var/cache/bind";
