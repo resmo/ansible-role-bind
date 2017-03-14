@@ -34,6 +34,23 @@ Optionally: If your nameservers acts as a secondary nameserver, here is a sample
             - example.net
             - example.org
 
+Optionally: If your nameservers acts as a secondary nameserver, here is a sample setup with TSIG Keys:
+
+      bind_config_slave_zones:
+        - name: example.net
+          keys:
+            - name: sample-key
+              algorithm: hmac-md5
+              secret: 'phaiGouX7Soh8gee4Vee'
+          masters_templates:
+            - name: example-tmpl
+              servers:
+              - '127.0.0.1 key sample-key'
+              - '2001::15 key sample-key'
+          masters: [ 'example-templ' ]
+          zones:
+            - example.net
+            - example.org
 
 Optionally: If you need to forward some zones directly to another nameserver, here is a sample:
 
