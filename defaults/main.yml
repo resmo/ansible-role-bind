@@ -16,3 +16,4 @@ bind_config_allow_query: []
 bind_config_allow_recursion: []
 bind_config_allow_query_cache: []
 bind_config_acls: []
+bind_config_notify: 'no'

@@ -19,7 +19,10 @@ options {
   
         query-source address * port *;
 
-        transfer-source *;
+        transfer-source {{ ansible_default_ipv4.address }} port 53;
+	{% if ansible_default_ipv6.address is defined %}
+        transfer-source-v6 {{ ansible_default_ipv6.address }} port 53;
+	{% endif %}
 
         notify-source *;
 
@@ -29,7 +32,7 @@ options {
         {% endfor %}
         };
 
-        notify yes;
+        notify {{ bind_config_notify }};
 
         also-notify {
         };
@@ -50,7 +53,7 @@ options {
         //dnssec-enable yes;
         //dnssec-validation yes;
 
-        auth-nxdomain no;    # conform to RFC1035
+        auth-nxdomain no; // conform to RFC1035
         
         listen-on { {{ bind_config_listen_on }}; }; 
         listen-on-v6 { any; };
@@ -62,29 +65,29 @@ options {
       {% endfor %}
       };
   {% else %}
-        allow-query { any; };              // This is the default
+        allow-query { any; }; // This is the default
   {% endif %}
 
 {% if bind_config_allow_recursion %}
-       allow-recursion {
+        allow-recursion {
        {% for queries in bind_config_allow_recursion %}
-         {{ queries }};
+          {{ queries }};
        {% endfor %}
-       };
+        };
    {% else %}
-         allow-recursion { any; };              // This is the default
+        allow-recursion { any; }; // This is the default
    {% endif %}
 
 {% if bind_config_allow_query_cache %}
-       allow-query-cache {
+        allow-query-cache {
        {% for queries in bind_config_allow_query_cache %}
          {{ queries }};
        {% endfor %}
        };
    {% else %}
-         allow-query-cache { any; };              // This is the default
+        allow-query-cache { any; }; // This is the default
    {% endif %}
 
-        recursion {{ bind_config_recursion }};                      // Do not provide recursive service
+        recursion {{ bind_config_recursion }};
         zone-statistics yes;
 };
