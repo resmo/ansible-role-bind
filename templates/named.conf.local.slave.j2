@@ -1,13 +1,34 @@
 ## {{ ansible_managed }}
+
 {% for slave_zone in bind_config_slave_zones %}
 ######## {{ slave_zone.name }} ({{ slave_zone.zones|count }} zones)
-{% for zone in slave_zone.zones %}
+# TSIG Keys
+{% for tsig_key in slave_zone.tsig_keys|default('') %}
+key "{{ tsig_key.name }}" {
+    algorithm {{ tsig_key.algorithm }};
+    secret "{{ tsig_key.secret }}";
+};
+{% endfor %}
+
+# Masters Template
+{% for master in slave_zone.masters_templates|default('') %}
+masters {{ master.name }} {
+{% for server in master.servers %}
+    {{ server }};
+{% endfor %}
+};
+{% endfor %}
+
+# Zones
+{% for zone in slave_zone.zones|sort %}
 zone "{{ zone }}" {
     type slave;
+    notify no;
     file "{{bind_base_zones_path}}/{{bind_slavezones_path}}/db.{{ zone }}";
+    masterfile-format text; # no bind9.9 binary format
     masters {
 {% for master in slave_zone.masters %}
-          {{ master }};
+        {{ master }};
 {% endfor %}
     };
 };

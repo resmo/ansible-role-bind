@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/resmo/ansible-role-bind.png?branch=master)](https://travis-ci.org/resmo/ansible-role-bind)
 
-# Ansible Bind Role
+# Ansible Bind9 Role
 
 An ansible role for installing and managing bind, acting as primary and/or secondary nameserver. 
 It does also copy the master zone files (`bind_masterzones_path`), but however, the zone files must exist.
@@ -34,6 +34,23 @@ Optionally: If your nameservers acts as a secondary nameserver, here is a sample
             - example.net
             - example.org
 
+Optionally: If your nameservers acts as a secondary nameserver, here is a sample setup with TSIG Keys:
+
+      bind_config_slave_zones:
+        - name: example.net
+          tsig_keys:
+            - name: sample-key
+              algorithm: hmac-md5
+              secret: 'phaiGouX7Soh8gee4Vee'
+          masters_templates:
+            - name: example-tmpl
+              servers:
+              - '127.0.0.1 key sample-key'
+              - '2001::15 key sample-key'
+          masters: [ 'example-templ' ]
+          zones:
+            - example.net
+            - example.org
 
 Optionally: If you need to forward some zones directly to another nameserver, here is a sample:
 
@@ -64,7 +81,7 @@ None.
     - hosts: nameservers
       remote_user: root
       roles:
-         - { role: resmo.bind }
+         - { role: bind9 }
 
 
 ## License
@@ -75,3 +92,4 @@ MIT
 ## Author Information
 
 René Moser <mail@renemoser.net>
+Additions by Daniel Paufler <dpaufler@leo34.net>
