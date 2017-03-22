@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/resmo/ansible-role-bind.png?branch=master)](https://travis-ci.org/resmo/ansible-role-bind)
+[![Build Status](https://travis-ci.org/teadur/ansible-role-bind.png?branch=master)](https://travis-ci.org/teadur/ansible-role-bind)
 
 # Ansible Bind9 Role
 
@@ -92,4 +92,6 @@ MIT
 ## Author Information
 
 René Moser <mail@renemoser.net>
+
 Additions by Daniel Paufler <dpaufler@leo34.net>
+Additions by Georg Kahest <georg@gj.ee>
