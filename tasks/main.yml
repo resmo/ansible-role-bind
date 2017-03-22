@@ -32,7 +32,7 @@
 - name: Create directory for master zone files
   file: 
     path: "{{ bind_base_zones_path }}/{{ bind_masterzones_path }}"
-    mode: 0760
+    mode: 0755
     state: directory
     owner: "{{ bind_user }}"
     group: "{{ bind_group }}"
