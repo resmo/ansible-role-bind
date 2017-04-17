@@ -5,6 +5,9 @@
 zone "{{ zone }}" {
     type slave;
     file "{{bind_base_zones_path}}/{{bind_slavezones_path}}/db.{{ zone }}";
+{% if slave_zone.notify is defined %}
+    notify {{ slave_zone.notify }};
+{% endif %}
     masters {
 {% for master in slave_zone.masters %}
           {{ master }};
