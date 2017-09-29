@@ -1,7 +1,7 @@
 ---
 - name: install bind packages
   apt: pkg={{ item }} state={{ bind_pkg_state }}
-  with_items: "{{bind_pkgs}}"
+  with_items: "{{ bind_pkgs }}"
 
 - name: setup zone directories
   file: dest="{{ bind_base_zones_path }}/{{ item }}" state=directory owner="{{ bind_user }}" group="{{ bind_group }}" mode=0755
