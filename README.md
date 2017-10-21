@@ -55,7 +55,7 @@ Optionally: If you want to adjust the allow-query option globally, here is a sam
 
 ## Dependencies
 
-None.
+Debian or Ubuntu.
 
 
 ## Example Playbook
