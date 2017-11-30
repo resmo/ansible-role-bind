@@ -13,3 +13,8 @@ bind_masterzones_path: "masters"
 bind_slavezones_path: "slaves"
 bind_config_listen_on: any
 bind_config_allow_query: []
+bind_logging_enabled: off
+bind_logging_path: /var/log/named
+bind_logging_file_versions: 3
+bind_logging_file_size: 5m
+bind_logging_severity: dynamic

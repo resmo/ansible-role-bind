@@ -53,6 +53,16 @@ Optionally: If you want to adjust the allow-query option globally, here is a sam
     bind_config_allow_query: [ '127.1.0.1', '127.1.0.2' ]
 
 
+Optionally: You can enable logging (this creates one file per channel):
+
+    bind_logging_enabled: on
+
+Optionally: You can configure log files size, versions, logging severity and path:
+    bind_logging_path: /var/log/named
+    bind_logging_file_versions: 3
+    bind_logging_file_size: 5m
+    bind_logging_severity: dynamic
+
 ## Dependencies
 
 None.
@@ -75,3 +85,4 @@ MIT
 ## Author Information
 
 René Moser <mail@renemoser.net>
+Logging configuration borrowed from <a href="">Steven Carr</a> from a <a href="https://stackoverflow.com/a/12114139/907592">StackOverflow's answer</a>.
