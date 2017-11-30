@@ -2,15 +2,19 @@
 
 # Ansible Bind Role
 
-An ansible role for installing and managing bind, acting as primary and/or secondary nameserver. 
-It does also copy the master zone files (`bind_masterzones_path`), but however, the zone files must exist.
+An ansible role for installing and managing bind, acting as primary and/or secondary nameserver.
+It does also copy the master zone files (`bind_masterzones_path`), but however, the zone files must exist in the local machine (`bind_masterzones_local_path`).
 
 
 ## Configuration:
 
-Define where your zones files are stored:
+Define where your zones files are stored in the server:
 
       bind_masterzones_path: path/to/zones_dir
+
+Define where your zones files are stored in the ansible controller machine:
+
+      bind_masterzones_local_path: path/to/zones/local/dir/
 
 Configure the domains of the zones for a bind act as primary nameserver:
 
