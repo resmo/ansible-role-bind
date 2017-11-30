@@ -56,9 +56,18 @@ options {
       {% endfor %}
       };
   {% else %}
-        allow-query { any; };              // This is the default
+        allow-query { any; }; // This is the default
   {% endif %}
 
-        recursion {{ bind_config_recursion }};                      // Do not provide recursive service
+        recursion {{ bind_config_recursion }}; // Do not provide recursive service
+
+  {% if bind_config_recursion %}
+        allow-recursion {
+          {% for bind_config_allow_recursion_item in bind_config_allow_recursion %}
+            {{ bind_config_allow_recursion_item }};
+          {% endfor %}
+        };
+  {% endif %}
+
         zone-statistics yes;
 };
