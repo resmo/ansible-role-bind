@@ -62,3 +62,111 @@ options {
         recursion {{ bind_config_recursion }};                      // Do not provide recursive service
         zone-statistics yes;
 };
+
+{% if bind_logging_enabled %}
+logging {
+    channel default_file {
+        file "{{ bind_logging_path }}/default.log" versions {{ bind_logging_file_versions }} size {{ bind_logging_file_size }};
+        severity {{ bind_logging_severity }};
+        print-time yes;
+    };
+    channel general_file {
+        file "{{ bind_logging_path }}/general.log" versions {{ bind_logging_file_versions }} size {{ bind_logging_file_size }};
+        severity {{ bind_logging_severity }};
+        print-time yes;
+    };
+    channel database_file {
+        file "{{ bind_logging_path }}/database.log" versions {{ bind_logging_file_versions }} size {{ bind_logging_file_size }};
+        severity {{ bind_logging_severity }};
+        print-time yes;
+    };
+    channel security_file {
+        file "{{ bind_logging_path }}/security.log" versions {{ bind_logging_file_versions }} size {{ bind_logging_file_size }};
+        severity {{ bind_logging_severity }};
+        print-time yes;
+    };
+    channel config_file {
+        file "{{ bind_logging_path }}/config.log" versions {{ bind_logging_file_versions }} size {{ bind_logging_file_size }};
+        severity {{ bind_logging_severity }};
+        print-time yes;
+    };
+    channel resolver_file {
+        file "{{ bind_logging_path }}/resolver.log" versions {{ bind_logging_file_versions }} size {{ bind_logging_file_size }};
+        severity {{ bind_logging_severity }};
+        print-time yes;
+    };
+    channel xfer-in_file {
+        file "{{ bind_logging_path }}/xfer-in.log" versions {{ bind_logging_file_versions }} size {{ bind_logging_file_size }};
+        severity {{ bind_logging_severity }};
+        print-time yes;
+    };
+    channel xfer-out_file {
+        file "{{ bind_logging_path }}/xfer-out.log" versions {{ bind_logging_file_versions }} size {{ bind_logging_file_size }};
+        severity {{ bind_logging_severity }};
+        print-time yes;
+    };
+    channel notify_file {
+        file "{{ bind_logging_path }}/notify.log" versions {{ bind_logging_file_versions }} size {{ bind_logging_file_size }};
+        severity {{ bind_logging_severity }};
+        print-time yes;
+    };
+    channel client_file {
+        file "{{ bind_logging_path }}/client.log" versions {{ bind_logging_file_versions }} size {{ bind_logging_file_size }};
+        severity {{ bind_logging_severity }};
+        print-time yes;
+    };
+    channel unmatched_file {
+        file "{{ bind_logging_path }}/unmatched.log" versions {{ bind_logging_file_versions }} size {{ bind_logging_file_size }};
+        severity {{ bind_logging_severity }};
+        print-time yes;
+    };
+    channel queries_file {
+        file "{{ bind_logging_path }}/queries.log" versions {{ bind_logging_file_versions }} size {{ bind_logging_file_size }};
+        severity {{ bind_logging_severity }};
+        print-time yes;
+    };
+    channel network_file {
+        file "{{ bind_logging_path }}/network.log" versions {{ bind_logging_file_versions }} size {{ bind_logging_file_size }};
+        severity {{ bind_logging_severity }};
+        print-time yes;
+    };
+    channel update_file {
+        file "{{ bind_logging_path }}/update.log" versions {{ bind_logging_file_versions }} size {{ bind_logging_file_size }};
+        severity {{ bind_logging_severity }};
+        print-time yes;
+    };
+    channel dispatch_file {
+        file "{{ bind_logging_path }}/dispatch.log" versions {{ bind_logging_file_versions }} size {{ bind_logging_file_size }};
+        severity {{ bind_logging_severity }};
+        print-time yes;
+    };
+    channel dnssec_file {
+        file "{{ bind_logging_path }}/dnssec.log" versions {{ bind_logging_file_versions }} size {{ bind_logging_file_size }};
+        severity {{ bind_logging_severity }};
+        print-time yes;
+    };
+    channel lame-servers_file {
+        file "{{ bind_logging_path }}/lame-servers.log" versions {{ bind_logging_file_versions }} size {{ bind_logging_file_size }};
+        severity {{ bind_logging_severity }};
+        print-time yes;
+    };
+
+    category default { default_file; };
+    category general { general_file; };
+    category database { database_file; };
+    category security { security_file; };
+    category config { config_file; };
+    category resolver { resolver_file; };
+    category xfer-in { xfer-in_file; };
+    category xfer-out { xfer-out_file; };
+    category notify { notify_file; };
+    category client { client_file; };
+    category unmatched { unmatched_file; };
+    category queries { queries_file; };
+    category network { network_file; };
+    category update { update_file; };
+    category dispatch { dispatch_file; };
+    category dnssec { dnssec_file; };
+    category lame-servers { lame-servers_file; };
+};
+{% endif %}

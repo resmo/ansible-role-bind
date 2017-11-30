@@ -31,5 +31,9 @@
   notify: reload bind
   tags: bind-zones
 
+- name: Create log directory
+  file: path={{ bind_logging_path }} state=directory owner={{ bind_user }} group={{ bind_group }} mode=0755
+  when: bind_logging_enabled
+
 - name: start/stop bind service
   service: name={{ bind_service_name }} state={{ bind_service_state }} enabled={{ bind_service_enabled }}
