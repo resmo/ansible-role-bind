@@ -6,6 +6,20 @@ acl "{{ acl.name }}" {
 }; 
 {% endfor %}
 
+// TODO: Make me dynamic
+logging {
+      channel default_syslog {
+                print-time yes;
+                print-category yes;
+                print-severity yes;
+                syslog daemon;
+                severity info;
+        };
+        category queries { default_syslog; };
+
+};
+
+
 options {
         directory "/var/cache/bind";
 
@@ -90,4 +104,7 @@ options {
 
         recursion {{ bind_config_recursion }};
         zone-statistics yes;
+    {% if bind_config_querylog %}
+    querylog {{ bind_config_querylog }};
+    {% endif %}
 };
