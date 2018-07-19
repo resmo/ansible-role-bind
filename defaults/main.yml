@@ -19,3 +19,4 @@ bind_config_acls: []
 bind_config_notify: 'no'
 bind_config_querylog: 'no'
 bind_config_disable_default_zones: false
+bind_config_version: false

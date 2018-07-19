@@ -67,7 +67,8 @@ options {
 
         dnssec-enable yes;
         dnssec-validation yes;
-
+{% if bind_config_version %}        version "{{ bind_config_version }}";
+{% endif %}
         auth-nxdomain no; // conform to RFC1035
         
         listen-on { {{ bind_config_listen_on }}; }; 
