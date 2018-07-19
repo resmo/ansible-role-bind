@@ -105,7 +105,7 @@ options {
 
         recursion {{ bind_config_recursion }};
         zone-statistics yes;
-    {% if bind_config_querylog %}
+    {% if bind_config_querylog == 'yes' %}
     querylog {{ bind_config_querylog }};
     {% endif %}
 };
