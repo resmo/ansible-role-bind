@@ -18,7 +18,7 @@
   notify: reload bind
 
 - name: configure bind (named.conf)
-  copy: src=named.conf dest="{{ bind_config_basepath }}/named.conf" owner="{{ bind_user }}" group="{{ bind_group }}" mode=0600
+  template: src=named.conf.j2 dest="{{ bind_config_basepath }}/named.conf" owner="{{ bind_user }}" group="{{ bind_group }}" mode=0600
   notify: restart bind
 
 - name: configure bind (named.conf.default-zones)
