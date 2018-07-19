@@ -16,6 +16,7 @@ logging {
                 severity info;
         };
         category queries { default_syslog; };
+        category dnssec { default_syslog; };
 
 };
 
@@ -64,8 +65,8 @@ options {
         };
 	{% endif %}
 
-        //dnssec-enable yes;
-        //dnssec-validation yes;
+        dnssec-enable yes;
+        dnssec-validation yes;
 
         auth-nxdomain no; // conform to RFC1035
         
