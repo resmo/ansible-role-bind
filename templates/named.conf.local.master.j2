@@ -10,6 +10,14 @@ zone "{{ master_zone.name }}" {
         {{ allow_transfer }};
 {% endfor %}
     };
+    also-notify {
+{% if master_zone.also_notify is defined %}
+{% for notified_host in master_zone.also_notify %}
+        {{ notified_host }};
+{% endfor %}
+{% endif %}
+    };
+
 {% endif %}
 {% if master_zone.allow_update is defined %}
     allow-update {

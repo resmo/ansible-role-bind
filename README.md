@@ -34,6 +34,16 @@ Optionally: If your nameservers acts as a secondary nameserver, here is a sample
             - example.net
             - example.org
 
+Optionally: If you want to notify a server, here is a sample configuration. Note that by default all servers in NS records will be notified.
+
+      bind_config_master_zones:
+        # also_notify is a list of IPs
+        - name: example.com
+          also_notify: [127.0.1.2]
+        - name: example.org
+          also_notify:
+            - 127.0.1.2
+            - 127.0.2.3
 
 Optionally: If you need to forward some zones directly to another nameserver, here is a sample:
 
