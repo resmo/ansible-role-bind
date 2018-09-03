@@ -4,6 +4,9 @@
 zone "{{ master_zone.name }}" {
     type master;
     file "{{bind_base_zones_path}}/{{bind_masterzones_path}}/db.{{ master_zone.name }}";
+{% if master_zone.notify is defined and master_zone.notify in ['yes', 'no','explicit']  %}
+    notify {{ master_zone.notify }};
+{% endif %}
 {% if master_zone.allow_transfer is defined %}
     allow-transfer {
 {% for allow_transfer in master_zone.allow_transfer %}
