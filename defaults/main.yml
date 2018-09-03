@@ -13,3 +13,4 @@ bind_masterzones_path: "masters"
 bind_slavezones_path: "slaves"
 bind_config_listen_on: any
 bind_config_allow_query: []
+bind_config_dnssec_enabled: false

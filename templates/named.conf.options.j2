@@ -41,8 +41,10 @@ options {
         };
 	{% endif %}
 
-        //dnssec-enable yes;
-        //dnssec-validation yes;
+    {% if bind_config_dnssec_enabled %}
+        dnssec-enable yes;
+        dnssec-validation auto;
+    {% endif %}
 
         auth-nxdomain no;    # conform to RFC1035
         

@@ -53,6 +53,10 @@ Optionally: If you want to adjust the allow-query option globally, here is a sam
     bind_config_allow_query: [ '127.1.0.1', '127.1.0.2' ]
 
 
+Optionally: If you want to use DNS-SEC validation, here is is how to enable this:
+
+    bind_config_dnssec_enabled: true
+
 ## Dependencies
 
 None.
