@@ -1,4 +1,14 @@
 ## {{ ansible_managed }}
+######## ({{ bind_config_master_zones|count }} zones)
+# TSIG Keys
+{% for tsig_key in bind_config_master_tsig_keys|default('') %}
+key "{{ tsig_key.name }}" {
+    algorithm {{ tsig_key.algorithm }};
+    secret "{{ tsig_key.secret }}";
+};
+{% endfor %}
+
+# Zones
 
 {% for master_zone in bind_config_master_zones %}
 zone "{{ master_zone.name }}" {

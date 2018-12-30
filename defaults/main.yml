@@ -2,6 +2,7 @@
 bind_config_master_zones: []
 bind_config_master_allow_transfer: []
 bind_config_master_forwarders: []
+bind_config_master_tsig_keys: []
 bind_config_recursion: "no"
 bind_config_slave_zones: []
 bind_config_forward_zones: []
