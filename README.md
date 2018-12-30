@@ -52,6 +52,11 @@ Optionally: If your nameservers acts as a secondary nameserver, here is a sample
             - example.net
             - example.org
 
+      bind_config_master_tsig_keys:
+         - name: sample-key
+             algorithm: hmac-md5
+             secret: 'phaiGouX7Soh8gee4Vee'
+
 Optionally: If you need to forward some zones directly to another nameserver, here is a sample:
 
     bind_config_forward_zones:
@@ -81,7 +86,11 @@ None.
     - hosts: nameservers
       remote_user: root
       roles:
-         - { role: bind9 }
+         - role: bind9
+           bind_base_zones_path: '/var/cache/bind'
+           bind_config_version: 'none'
+           bind_config_master_zones: []
+           bind_config_slave_zones: []
 
 
 ## License
