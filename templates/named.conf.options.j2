@@ -34,12 +34,12 @@ options {
         //query-source address * port 53;
   
         query-source address * port *;
-
+	{% if bind_config_transfer_source %}
         transfer-source {{ ansible_default_ipv4.address }} port 53;
 	{% if ansible_default_ipv6.address is defined %}
         transfer-source-v6 {{ ansible_default_ipv6.address }} port 53;
 	{% endif %}
-
+	{% endif %}
         notify-source *;
 
         allow-transfer {
