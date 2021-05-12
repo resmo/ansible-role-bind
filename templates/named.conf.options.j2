@@ -24,7 +24,7 @@ logging {
 
 options {
         directory "/var/cache/bind";
-
+	hostname {{ inventory_hostname }};
         // If there is a firewall between you and nameservers you want
         // to talk to, you might need to uncomment the query-source
         // directive below.  Previous versions of BIND always asked
