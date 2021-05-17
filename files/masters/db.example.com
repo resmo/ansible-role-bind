@@ -1,3 +1,4 @@
+;Ansible managed, do not edit directly
 $TTL    4h
 $ORIGIN example.com.
 @           IN      SOA     ns1.example.com.    hostmaster.example.com. (

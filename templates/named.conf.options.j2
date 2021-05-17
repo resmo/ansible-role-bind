@@ -1,8 +1,30 @@
 // {{ ansible_managed }}
+{% for acl in bind_config_acls %}
+acl "{{ acl.name }}" {
+{% for entries in acl.entries %}
+    {{ entries | indent(4) }}; 
+{% endfor %}
+}; 
+{% endfor %}
+
+// TODO: Make me dynamic
+logging {
+      channel default_syslog {
+                print-time yes;
+                print-category yes;
+                print-severity yes;
+                syslog daemon;
+                severity info;
+        };
+        category queries { default_syslog; };
+        category dnssec { default_syslog; };
+
+};
+
 
 options {
         directory "/var/cache/bind";
-
+	hostname "{{ inventory_hostname }}";
         // If there is a firewall between you and nameservers you want
         // to talk to, you might need to uncomment the query-source
         // directive below.  Previous versions of BIND always asked
@@ -12,9 +34,12 @@ options {
         //query-source address * port 53;
   
         query-source address * port *;
-
-        transfer-source *;
-
+	{% if bind_config_transfer_source %}
+        transfer-source {{ ansible_default_ipv4.address }} port 53;
+	{% if ansible_default_ipv6.address is defined %}
+        transfer-source-v6 {{ ansible_default_ipv6.address }} port 53;
+	{% endif %}
+	{% endif %}
         notify-source *;
 
         allow-transfer {
@@ -23,7 +48,7 @@ options {
         {% endfor %}
         };
 
-        notify yes;
+        notify {{ bind_config_notify }};
 
         also-notify {
         };
@@ -41,10 +66,11 @@ options {
         };
 	{% endif %}
 
-        //dnssec-enable yes;
-        //dnssec-validation yes;
-
-        auth-nxdomain no;    # conform to RFC1035
+        dnssec-enable yes;
+        dnssec-validation yes;
+{% if bind_config_version %}        version "{{ bind_config_version }}";
+{% endif %}
+        auth-nxdomain no; // conform to RFC1035
         
         listen-on { {{ bind_config_listen_on }}; }; 
         listen-on-v6 { any; };
@@ -56,9 +82,32 @@ options {
       {% endfor %}
       };
   {% else %}
-        allow-query { any; };              // This is the default
+        allow-query { any; }; // This is the default
   {% endif %}
 
-        recursion {{ bind_config_recursion }};                      // Do not provide recursive service
+{% if bind_config_allow_recursion %}
+        allow-recursion {
+       {% for queries in bind_config_allow_recursion %}
+          {{ queries }};
+       {% endfor %}
+        };
+   {% else %}
+        allow-recursion { any; }; // This is the default
+   {% endif %}
+
+{% if bind_config_allow_query_cache %}
+        allow-query-cache {
+       {% for queries in bind_config_allow_query_cache %}
+         {{ queries }};
+       {% endfor %}
+       };
+   {% else %}
+        allow-query-cache { any; }; // This is the default
+   {% endif %}
+
+        recursion {{ bind_config_recursion }};
         zone-statistics yes;
+    {% if bind_config_querylog == 'yes' %}
+    querylog {{ bind_config_querylog }};
+    {% endif %}
 };
